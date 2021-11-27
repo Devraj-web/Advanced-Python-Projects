@@ -1,0 +1,31 @@
+import pdf2image
+import os, sys
+try:
+    from PIL import Image
+except ImportError:
+    import Image
+import pytesseract
+PATH = 'Enter your path'
+
+#initialize the counter that you will use later in your pdf extraction function
+i = 1
+def delete_ppms():
+  for file in os.listdir(PATH):
+    if '.ppm' in file or '.DS_Store' in file:
+      try:
+          os.remove(PATH + file)
+      except FileNotFoundError:
+          pass
+pdf_files = []
+docx_files = []
+
+# append document names into the lists by their extension type
+for f in os.listdir(PATH):
+  full_name = os.path.join(PATH, f) 
+  if os.path.isfile(full_name):
+    name = os.path.basename(f)
+    filename, ext = os.path.splitext(name)
+    if ext == '.pdf':
+      pdf_files.append(name)
+    elif ext == ('.docx'):
+      docx_files.append(name)
